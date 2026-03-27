@@ -1,0 +1,17 @@
+services:
+  db:
+    image: mysql:8.0              # Descarga la versión 8 de MySQL
+    container_name: mysql_servidor # Nombre para identificarlo fácilmente
+    restart: always                # Si se cae o reinicias el PC, vuelve a arrancar
+    env_file: .env                 # Lee las contraseñas del archivo oculto .env
+    environment:
+      # Mapeamos tus variables del .env a las que exige MySQL
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    ports:
+      - "3306:3306"                # Abre el puerto para que Python pueda entrar
+    volumes:
+      - mysql_data:/var/lib/mysql  # (Opcional) Para que no pierdas datos si borras el contenedor
+
+volumes:
+  mysql_data:

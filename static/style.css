@@ -1,0 +1,214 @@
+/* --- 1. GENERAL --- */
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+
+* { box-sizing: border-box; }
+body { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+
+/* --- 2. LOGIN (Pantalla Azul) --- */
+.login-bg {
+    background-color: #dcebfb;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-container {
+    background: white;
+    width: 350px;
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.user-avatar {
+    width: 80px; height: 80px; margin: 0 auto 20px auto;
+    border: 3px solid #3b82f6; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #3b82f6; font-size: 40px; background-color: #f0f9ff;
+}
+.login-title { color: #1d70b8; margin: 0 0 20px 0; font-weight: 700; }
+.alert-box {
+    background-color: #fee2e2; color: #b91c1c;
+    padding: 10px; border-radius: 5px; margin-bottom: 20px;
+    border: 1px solid #fca5a5; font-size: 14px; font-weight: bold;
+    display: flex; align-items: center; gap: 10px; text-align: left;
+}
+.input-group { position: relative; margin-bottom: 20px; }
+.input-group input {
+    width: 100%; padding: 10px 15px 10px 40px;
+    border: 1px solid #3b82f6; border-radius: 5px; outline: none; color: #1d4ed8;
+}
+.input-icon {
+    position: absolute; left: 10px; top: 50%;
+    transform: translateY(-50%); color: #3b82f6;
+}
+.btn-login {
+    width: 100%; padding: 10px;
+    background-color: #1d70b8; color: white;
+    border: none; border-radius: 5px;
+    font-size: 18px; font-weight: bold; cursor: pointer;
+}
+.btn-login:hover { background-color: #155a96; }
+.options-row {
+    display: flex; justify-content: center; margin-top: 20px;
+    font-size: 12px; color: #1d70b8;
+}
+
+/* --- 3. DASHBOARD (Panel de Control) --- */
+.dashboard-body { background-color: #f3f4f6; padding-bottom: 40px; }
+
+/* Barra Superior */
+.top-banner {
+    background: white; padding: 15px 30px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px;
+}
+.banner-left { display: flex; align-items: center; gap: 15px; }
+.company-name { margin: 0; color: #1d70b8; }
+.user-badge {
+    background: #e0f2fe; color: #0284c7;
+    padding: 5px 10px; border-radius: 20px; font-size: 0.9em;
+}
+.btn-logout {
+    color: #ef4444; text-decoration: none; font-weight: bold;
+    border: 1px solid #ef4444; padding: 5px 15px; border-radius: 5px;
+    transition: background 0.2s;
+}
+.btn-logout:hover { background: #fee2e2; }
+
+/* Estructura Principal */
+.dashboard-container { display: flex; padding: 0 20px; gap: 20px; }
+.main-panel { flex: 3; }
+.stats-panel { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+
+/* Tarjetas (Cards) */
+.card {
+    background: white; padding: 20px; border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px;
+}
+/* CORREGIDO: Ahora incluye el margen inferior para separar del contenido */
+.card-header-flex { 
+    display: flex; justify-content: space-between; align-items: center; 
+    margin-bottom: 20px; 
+}
+.card h3 { margin: 0; }
+.text-muted { color: #64748b; margin-top: 5px; font-size: 0.95em; }
+.chart-container { height: 180px; width: 180px; }
+
+/* Botón Nueva Incidencia */
+.btn-new {
+    background: #3b82f6; color: white; border: none;
+    padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold;
+}
+.btn-new:hover { background: #2563eb; }
+
+/* Formulario Desplegable */
+.form-box {
+    display: none; margin-bottom: 20px; background: #f8fafc;
+    padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;
+}
+.form-title { margin-top: 0; color: #1d4ed8; display: flex; align-items: center; gap: 8px; }
+.form-group { margin-bottom: 10px; }
+
+/* CORREGIDO: Clase nueva para las etiquetas (Labels) */
+.form-label {
+    font-size: 0.9em; color: #64748b; font-weight: bold;
+    display: block; margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%; padding: 10px;
+    border: 1px solid #cbd5e1; border-radius: 5px; background: white;
+}
+/* CORREGIDO: Ajuste especial para textarea */
+textarea.form-control {
+    height: 80px; resize: vertical; font-family: 'Segoe UI', sans-serif;
+}
+
+.form-actions { text-align: right; margin-top: 15px; }
+.btn-cancel {
+    padding: 8px 15px; cursor: pointer; background: #ccc;
+    border: none; border-radius: 4px; margin-right: 10px;
+}
+.btn-submit {
+    background: #10b981; color: white; border: none;
+    padding: 8px 20px; border-radius: 4px; cursor: pointer; font-weight: bold;
+}
+
+/* Tabla de Datos */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th {
+    background-color: #f1f5f9; text-align: left; padding: 12px;
+    border-bottom: 2px solid #e2e8f0; color: #334155;
+}
+.data-table td { padding: 12px; border-bottom: 1px solid #e2e8f0; vertical-align: middle; }
+.td-id { font-weight: bold; color: #64748b; }
+.td-date { font-size: 0.9em; color: #475569; }
+.td-title { font-weight: 500; }
+
+/* Badges de Prioridad */
+.badge-prio { padding: 4px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold; display: inline-block; }
+.prio-urgent { color: #dc2626; background: #fee2e2; }
+.prio-high { color: #ea580c; background: #ffedd5; }
+.prio-media { color: #ca8a04; background: #fef9c3; font-weight: normal; }
+.prio-low { color: #16a34a; background: #dcfce7; font-weight: normal; }
+
+/* Badges de Estado */
+.badge { padding: 4px 8px; border-radius: 4px; color: white; font-size: 0.8em; font-weight: 600; }
+.status-abierta { background: #ef4444; }
+.status-en-proceso { background: #f59e0b; }
+.status-cerrada { background: #10b981; }
+
+/* Botones de Acción (Iconos) */
+.action-btn { margin-right: 10px; font-size: 1.2em; text-decoration: none; }
+.action-process { color: #f59e0b; }
+.action-close { color: #10b981; }
+.action-delete { color: #ef4444; }
+.action-wait { color: #cbd5e1; font-style: italic; font-size: 0.9em; }
+
+/* Cajas Estadísticas Derecha */
+.stat-box {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 20px; color: white; border-radius: 5px;
+    font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.box-blue { background-color: #0ea5e9; }
+.box-red { background-color: #ef4444; }
+.box-orange { background-color: #f59e0b; }
+.box-green { background-color: #10b981; }
+.stat-number { font-size: 1.5rem; }
+
+/* --- 4. VENTANA EMERGENTE (MODAL) --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); z-index: 9999;
+    display: flex; justify-content: center; align-items: center;
+    backdrop-filter: blur(5px);
+}
+.modal-content {
+    background: white; padding: 40px; border-radius: 15px;
+    text-align: center; max-width: 500px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    border-top: 20px solid #dc2626;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.modal-icon { font-size: 60px; margin-bottom: 20px; animation: parpadeo 1.5s infinite; }
+.modal-title { color: #dc2626; margin: 0 0 10px 0; font-size: 28px; text-transform: uppercase; }
+.modal-text { font-size: 18px; color: #4b5563; line-height: 1.6; }
+.modal-highlight { color: #dc2626; background: #fee2e2; padding: 2px 5px; border-radius: 4px; font-weight: bold; }
+.modal-btn {
+    margin-top: 20px; background: #dc2626; color: white;
+    border: none; padding: 15px 30px; font-size: 16px; font-weight: bold;
+    border-radius: 8px; cursor: pointer; transition: transform 0.1s;
+}
+.modal-btn:active { transform: scale(0.95); }
+
+/* --- 5. ANIMACIONES --- */
+@keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+@keyframes parpadeo {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}

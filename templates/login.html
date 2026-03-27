@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - TechSolutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-bg">
+    
+    <div class="login-container">
+        
+        <div class="user-avatar">
+            <i class="fas fa-user"></i>
+        </div>
+
+        <h2 class="login-title">
+            TechSolutions S.A.
+        </h2>
+
+        {% if error %}
+            <div class="alert-box">
+                <i class="fas fa-exclamation-circle"></i> {{ error }}
+            </div>
+        {% endif %}
+
+        <form action="/login" method="POST">
+            <div class="input-group">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" name="username" placeholder="Usuario" required autocomplete="off">
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" name="password" placeholder="Contraseña" required>
+            </div>
+
+            <button type="submit" class="btn-login">ENTRAR</button>
+        </form>
+
+        <div class="options-row">
+            <span>Soporte Técnico v1.0</span>
+        </div>
+    </div>
+
+</body>
+</html>
