@@ -11,37 +11,39 @@ load_dotenv()
 RAW_USER_PASS = os.getenv('DEFAULT_USER_PASS')
 RAW_TECH_PASS = os.getenv('DEFAULT_TECH_PASS')
 DB_PASS = os.getenv('DB_ROOT_PASSWORD')
+# Leemos el host (será mysql_servidor en el NUC o localhost en Windows)
+DB_HOST = os.getenv('DB_HOST', 'localhost')
 
 # --- BLOQUE DE SEGURIDAD ESTRICTA ---
-# Si no existen las variables, EL PROGRAMA SE DETIENE.
-# No hay contraseñas por defecto escritas aquí.
 if not RAW_USER_PASS or not RAW_TECH_PASS:
-    raise ValueError("❌ ERROR DE SEGURIDAD: No se han encontrado las contraseñas en el archivo .env. Por favor, añádelas antes de ejecutar el script.")
+    raise ValueError("❌ ERROR DE SEGURIDAD: No se han encontrado las contraseñas en el archivo .env.")
 
 if not DB_PASS:
      raise ValueError("❌ ERROR: Falta la contraseña de la base de datos (DB_ROOT_PASSWORD) en el archivo .env")
 # -------------------------------------
 
-print("🔌 Conectando a la base de datos...")
-# Nota: Si falla aquí es que el .env no tiene la contraseña de root correcta
+print(f"🔌 Conectando a la base de datos en: {DB_HOST}...")
+
 try:
     db = mysql.connector.connect(
-        host="localhost",
+        host=DB_HOST, # <--- Cambio clave para Docker
         user="root",
         password=DB_PASS,
         database=os.getenv('DB_NAME')
     )
 except mysql.connector.Error as err:
     print(f"❌ Error de conexión: {err}")
-    print("Revisa que Docker esté encendido y que la contraseña en .env sea correcta.")
+    print("Si estás en Docker, asegúrate de que el servicio 'mysql_servidor' esté levantado.")
     exit()
 
 cursor = db.cursor()
 
 # 2. Limpieza
 print("🧹 Borrando tablas antiguas...")
+cursor.execute("SET FOREIGN_KEY_CHECKS = 0") # Desactivamos checks para borrar sin errores
 cursor.execute("DROP TABLE IF EXISTS incidencias")
 cursor.execute("DROP TABLE IF EXISTS usuarios")
+cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
 
 # 3. Creación de Tablas
 print("🏗️ Creando tablas nuevas...")
@@ -69,7 +71,6 @@ CREATE TABLE incidencias (
 
 # 4. Creación de Usuarios
 print("👥 Creando usuarios...")
-# Aquí usamos las variables que leímos del .env (que nadie puede ver en este código)
 pass_user = generate_password_hash(RAW_USER_PASS)
 pass_tech = generate_password_hash(RAW_TECH_PASS)
 
@@ -103,8 +104,7 @@ prioridades = ['Baja', 'Media', 'Alta', 'Urgente']
 
 for titulo, desc, uid in incidencias_data:
     prio = random.choice(prioridades)
-    if uid > 9: uid = 3 
-    
+    # Ajuste por si el usuario_id no existe
     cursor.execute(
         "INSERT INTO incidencias (titulo, descripcion, usuario_id, prioridad) VALUES (%s, %s, %s, %s)",
         (titulo, desc, uid, prio)
